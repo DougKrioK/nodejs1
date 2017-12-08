@@ -10,6 +10,10 @@ module.exports = function(){
     app.set('views','./app/views');//setando localização das views pro express
 
     app.use(bodyParser.urlencoded({extended: true}));
+    //middleware, analisa se é json
+    app.use(bodyParser.json());
+
+
     load('routes', { cwd: 'app'})
         .then('infra')
         .into(app)

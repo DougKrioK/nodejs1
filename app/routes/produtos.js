@@ -5,6 +5,10 @@ module.exports = function(app) {
 
         produtosDAO.lista(function(err, results){
             //analisa o header, para responder o tipo apropriado
+            /**
+            Content Negotiation é um mecanismo definido no HTTP que torna possível servir diferentes formatos de um mesmo conteúdo a partir da mesma url. Evitando assim que se precisasse criar novas urls para cada formato necessário para exibir a lista de produtos, por exemplo.
+            Ele funciona através do Header Accept, em que o cliente que está consumindo a url informa qual tipo de dados, ele aceita receber no response de sua requisição. Os navegadores tradicionais, por exemplo, utilizam por default o valor “text/html” em seu Accept.
+             */
             res.format({
                 html: function(){
                     res.render('produtos/lista', {lista: results});
