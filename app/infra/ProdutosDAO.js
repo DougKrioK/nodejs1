@@ -8,6 +8,14 @@ class ProdutosDAO {
 
     salva(produto, callback) {
         this._connection.query('insert into produtos set ?',produto, callback);
+
+        /**
+        *
+        Uma outra maneira de passar os parâmetros para a query seria utilizando o values exatamente como se faz na sql pura e passar uma ‘?’ no valor de cada parâmetro da query. Passando depois também cada valor como parâmetro da função query no javascript. Ex: 
+        ProdutosDAO.prototype.salva = function (produto, callback) {
+            this._connection.query('insert into produtos (titulo, preco, descricao) values (?, ?, ?)',  [produto.titulo, produto.preco, produto.descricao], callback);
+        }c
+         */
     }
 }
 
