@@ -1,15 +1,14 @@
-
-module.exports = function(app){
-    app.get('/produtos', function(req,res){
-        
-        //conexão ao banco
+module.exports = function(app) {
+    app.get("/produtos",function(req, res) {
         var connection = app.infra.connectionFactory();
-        connection.query('select * from produtos',function(err,results){
+        var produtosBanco = app.infra.produtosBanco;
 
-            res.render('produtos/lista',{lista:results});
-
+        produtosBanco.lista(connection, function(err, results){
+            
+            res.render('produtos/lista', {lista: results});
         });
-        connection.end();
-    });
 
+        connection.end();
+
+    });
 }
