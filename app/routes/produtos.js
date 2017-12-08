@@ -27,7 +27,10 @@ module.exports = function(app) {
 
     app.get("/produtos/form",function(req, res) {
         res.render('produtos/form',
-            {errosValidacao:{}}
+            {
+                errosValidacao:{},
+                produto: {}
+            }
         );
     });
 
@@ -49,7 +52,7 @@ module.exports = function(app) {
         var erros = req.validationErrors();
         //Verificamos se ouve erros com o if(erros), caso a variável erros seja preenchida com algum erro, o JavaScript vai considerar como true. Caso haja erros, renderizamos o formulário novamente e usamos um return; vazio, para que ele saia do método app.post() sem cadastrar.
         if(erros){
-            res.render('produtos/form',{errosValidacao: erros});
+            res.render('produtos/form',{errosValidacao: erros, produto:produto});
             return;
         }
 
