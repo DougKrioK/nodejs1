@@ -52,8 +52,15 @@ module.exports = function(app) {
         var erros = req.validationErrors();
         //Verificamos se ouve erros com o if(erros), caso a variável erros seja preenchida com algum erro, o JavaScript vai considerar como true. Caso haja erros, renderizamos o formulário novamente e usamos um return; vazio, para que ele saia do método app.post() sem cadastrar.
         if(erros){
-            res.render('produtos/form',{errosValidacao: erros, produto:produto});
-            return;
+
+            res.format({
+                html: function(){
+                    res.status(400).render('produtos/form',{errosValidacao:erros,produto:produto});
+                },
+                json: function(){
+                    res.status(400).json(erros);
+                }
+            });
         }
 
         var connection = app.infra.connectionFactory();
