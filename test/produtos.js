@@ -2,6 +2,17 @@ var express = require('../config/express')();
 var request = require('supertest')(express);
 
 describe('#ProdutosController',function(){
+    //pra limpar todas tabelas de uma vez, pesquisar por node-database-cleaner
+    beforeEach(function(done){
+        var conn = express.infra.connectionFactory();
+        conn.query("delete from produtos", function(ex,result){
+            if(!ex) {
+                done();
+            }
+        });
+    });
+
+
     it('#listagem json', function(done){
 
         request.get('/produtos')
